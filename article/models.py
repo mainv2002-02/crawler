@@ -2,8 +2,8 @@ from django.db import models
 
 
 class Article(models.Model):
-    title = models.CharField('Title', max_length=255)
     url = models.URLField('URL', max_length=255, unique=True)
+    title = models.CharField('Title', max_length=255, blank=True)
     summary = models.TextField('Summary', blank=True, null=True)
     content = models.TextField('Content', blank=True, null=True)
     json = models.JSONField('Json', blank=True, null=True)
@@ -12,7 +12,7 @@ class Article(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return '-'.join([self.title, self.url])
 
 
 class CrawlerConfig(models.Model):

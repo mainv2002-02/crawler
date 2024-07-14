@@ -1,13 +1,15 @@
 import os
 import sys
+import django
 
 sys.path.append(
     os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "..")
 )
-# os.environ["DJANGO_SETTINGS_MODULE"] = "admin.settings"
-# import django
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'crawling.settings')
+os.environ["DJANGO_SETTINGS_MODULE"] = "admin.settings"
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 #
-# django.setup()
+django.setup()
 
 # from admin.settings import MEDIA_ROOT
 
@@ -67,9 +69,9 @@ DOWNLOAD_DELAY = 3
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "crawling.pipelines.CrawlingPipeline": 300,
-#}
+ITEM_PIPELINES = {
+   "crawling.pipelines.CrawlingPipeline": 100,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

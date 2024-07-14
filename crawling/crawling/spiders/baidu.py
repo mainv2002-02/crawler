@@ -2,6 +2,8 @@ from crawling.spiders.web import Web
 from scrapy.http import Response
 from scrapy.selector import Selector
 from w3lib import html
+from crawling.items import ArticleItem
+from article.models import Article
 
 
 class Baidu(Web):
@@ -52,6 +54,11 @@ class Baidu(Web):
                 content = Selector(text=item).xpath("//table").extract_first()
                 h3['content'].append(html.remove_tags(text=content, keep=['table', 'tr', 'th', 'tbody', 'td']))
             else:
-
                 pass
-        print("--------\n")
+
+        article = ArticleItem()
+        article['title'] = title
+        article['summary'] = summary
+        article['content'] = contents
+
+        return article

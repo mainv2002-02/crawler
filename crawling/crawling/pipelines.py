@@ -1,3 +1,4 @@
+from article.models import Article
 def clean_title(param):
     return param
 
@@ -27,11 +28,14 @@ def clean_approval_percentage(param):
 
 class CrawlingPipeline(object):
     def process_item(self, item, spider):
-        title = clean_title(item["title"])
-        critics_consensus = clean_critics_consensus(item["critics_consensus"])
-        average_grade = clean_average_grade(item["average_grade"])
-        poster = clean_poster(item["images"])
-        amount_reviews = clean_amount_reviews(item["amount_reviews"])
-        approval_percentage = clean_approval_percentage(item["approval_percentage"])
+        title = item['title']
+        summary = item['summary']
+        content = item['content']
 
+        Article.objects.create(
+            url='https://baike.baidu.com/',
+            title=title,
+            summary=summary,
+            # content='content'
+        )
         return item
