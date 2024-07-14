@@ -31,26 +31,26 @@ class Baidu(Web):
         summary = Selector(response).xpath(self.patterns['summary']).extract()
         contents = []
         dict = {}
-        h2 = {}
+        h3 = {}
         for item in Selector(response).xpath(self.patterns['content']).extract():
             if 'paraTitle_X1rxd level-1_smEgo' in item:
                 dict = {}
                 contents.append(dict)
-                dict['h1'] = Selector(text=item).xpath("//text()").extract_first()
-                dict['h2'] = []
-                h2 = {
+                dict['h2'] = Selector(text=item).xpath("//text()").extract_first()
+                dict['h3'] = []
+                h3 = {
                     'text': '',
                     'content': []
                 }
-                dict['h2'].append(h2)
+                dict['h3'].append(h3)
                 dict['content'] = []
             elif 'paraTitle_X1rxd level-2_gaY8k' in item:
-                h2["text"] = Selector(text=item).xpath("//text()").extract_first()
+                h3["text"] = Selector(text=item).xpath("//text()").extract_first()
             elif 'para_OEbze content_roDnL MARK_MODULE' in item:
-                h2['content'].append(' .'.join(Selector(text=item).xpath("//text()").extract()))
+                h3['content'].append(' .'.join(Selector(text=item).xpath("//text()").extract()))
             elif 'data-module-type="table"' in item:
                 content = Selector(text=item).xpath("//table").extract_first()
-                h2['content'].append(html.remove_tags(text=content, keep=['table', 'tr', 'th', 'tbody', 'td']))
+                h3['content'].append(html.remove_tags(text=content, keep=['table', 'tr', 'th', 'tbody', 'td']))
             else:
 
                 pass
