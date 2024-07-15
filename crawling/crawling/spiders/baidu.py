@@ -63,8 +63,8 @@ class Baidu(Web):
 
         Article.objects.update_or_create(url=response.request.url,
                                          defaults={'title': title, 'summary': summary,
-                                                   'content': content},
+                                                   'content': contents},
                                          create_defaults={'url': response.request.url, 'title': title,
                                                           'summary': summary,
-                                                          'content': content})
+                                                          'content': contents})
         return ArticleItem(title=title, summary=summary, content=contents)
