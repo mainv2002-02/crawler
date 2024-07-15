@@ -9,9 +9,9 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import mimetypes
 import os
 from pathlib import Path
-import mimetypes
 
 mimetypes.add_type("text/css", ".css", True)
 mimetypes.add_type("text/javascript", ".js", True)
@@ -20,10 +20,10 @@ mimetypes.add_type("application/javascript", ".js", True)
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-PROJECT_DIR=os.path.dirname(__file__)
+PROJECT_DIR = os.path.dirname(__file__)
 BASE_DIR = Path(__file__).resolve().parent.parent
-STATIC_ROOT= os.path.join(PROJECT_DIR,'static_media/')
-STATICFILES_DIRS = ( os.path.join(PROJECT_DIR,'static/'),)
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static/')
+STATICFILES_DIRS = (os.path.join(PROJECT_DIR, 'static/'),)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
