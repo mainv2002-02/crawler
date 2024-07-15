@@ -1,17 +1,18 @@
+import time
+
 from crawling.items import ArticleItem
 from crawling.spiders.web import Web
+from scrapy.http import Request, Response
 from scrapy.selector import Selector
 from w3lib import html
-from scrapy.http import Request, Response
+
 from article.models import Article
 
 
 class Baidu(Web):
     name = 'baidu'
     allowed_domains = ['baike.baidu.com']
-    start_urls = [
-        'https://baike.baidu.com/item/%E7%9F%B3%E6%98%8A/9138725'
-    ]
+    start_urls = []
     patterns = {
         'title': '//h1[@class="lemmaTitle_kEoDP J-lemma-title"]/text()',
         'summary': '//div[@class="lemmaSummary_oJtZ8 J-summary"]/div//text()',
@@ -21,17 +22,15 @@ class Baidu(Web):
     content_pattern = '//div[@class="contentTab__I5si curTab_NVLbk"]/div'
 
     def start_requests(self):
-        print('===')
-        rows = Article.objects.filter(summary='').order_by('id')[:5]
-        for row in rows:
-            yield Request(row.url, dont_filter=True)
-    # def parse(self, response: Response, **kwargs: Any) -> Any:
-    #     contents = Selector(response).xpath(self.pattern)
-    #
-    #     for item in contents:
-    #         yield self.parse_content(item)
-    #
-    #     print("END -------\n\r")
+        while True:
+            rows = Article.objects.filter(url__contains='baike.baidu.com').filter(summary='').order_by('id')[:5]
+            if rows.count():
+                print('PROCESSS ...')
+                for row in rows:
+                    yield Request(row.url, dont_filter=True)
+            else:
+                print('SLEEEEEPPPP')
+                time.sleep(150)
 
     def parse_content(self, response: Response):
         title = Selector(response).xpath(self.patterns['title']).extract_first()
