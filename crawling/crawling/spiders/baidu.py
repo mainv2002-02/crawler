@@ -1,8 +1,9 @@
 from crawling.items import ArticleItem
 from crawling.spiders.web import Web
-from scrapy.http import Response
 from scrapy.selector import Selector
 from w3lib import html
+from scrapy.http import Request, Response
+from article.models import Article
 
 
 class Baidu(Web):
@@ -19,6 +20,11 @@ class Baidu(Web):
 
     content_pattern = '//div[@class="contentTab__I5si curTab_NVLbk"]/div'
 
+    def start_requests(self):
+        print('===')
+        rows = Article.objects.filter(summary='').order_by('id')[0].all()[:5]
+        for row in rows:
+            yield Request(row.url, dont_filter=True)
     # def parse(self, response: Response, **kwargs: Any) -> Any:
     #     contents = Selector(response).xpath(self.pattern)
     #
