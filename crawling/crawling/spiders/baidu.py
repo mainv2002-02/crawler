@@ -61,6 +61,7 @@ class Baidu(Web):
             else:
                 pass
 
-        article = ArticleItem(title=title, url=response.request.url, summary=summary, content=contents)
+        article = ArticleItem(title=title, summary=summary, content=contents)
+        article['url'] = response.request.url
         article.save()
         return article
