@@ -1,5 +1,4 @@
 from crawling.items import ArticleItem
-from article.models import Article
 from crawling.spiders.web import Web
 from scrapy.http import Response
 from scrapy.selector import Selector
@@ -56,7 +55,8 @@ class Baidu(Web):
             else:
                 pass
 
-        article = ArticleItem(title=title, url='https://baike.baidu.com/', summary=summary, content='contents').save()
+        article = ArticleItem(title=title, url='https://baike.baidu.com/', summary=summary, content='contents')
+        article.save()
         return article
         # article['title'] = title
         # article['summary'] = summary

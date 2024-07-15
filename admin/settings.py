@@ -11,12 +11,19 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+import mimetypes
+
+mimetypes.add_type("text/css", ".css", True)
+mimetypes.add_type("text/javascript", ".js", True)
+mimetypes.add_type("application/javascript", ".js", True)
 
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+PROJECT_DIR=os.path.dirname(__file__)
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+STATIC_ROOT= os.path.join(PROJECT_DIR,'static_media/')
+STATICFILES_DIRS = ( os.path.join(PROJECT_DIR,'static/'),)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -26,7 +33,7 @@ SECRET_KEY = "django-insecure-=t((^-*i)ioj)xn71fw8fbqq!93!q@+ubf05i92sz1d32fpexx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '139.59.110.59']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '139.59.110.59']
 
 # Application definition
 
@@ -122,7 +129,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
