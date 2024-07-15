@@ -61,7 +61,10 @@ class Baidu(Web):
             else:
                 pass
 
-        article = ArticleItem(title=title, summary=summary, content=contents)
-        article['url'] = response.request.url
-        article.save()
-        return article
+        Article.objects.update_or_create(url=response.request.url,
+                                         defaults={'title': title, 'summary': summary,
+                                                   'content': content},
+                                         create_defaults={'url': response.request.url, 'title': title,
+                                                          'summary': summary,
+                                                          'content': content})
+        return ArticleItem(title=title, summary=summary, content=contents)
