@@ -55,11 +55,6 @@ class Baidu(Web):
             else:
                 pass
 
-        article = ArticleItem(title=title, url='https://baike.baidu.com/', summary=summary, content='contents')
+        article = ArticleItem(title=title, url=response.request.url, summary=summary, content=contents)
         article.save()
         return article
-        # article['title'] = title
-        # article['summary'] = summary
-        # article['content'] = contents
-
-        # return article
