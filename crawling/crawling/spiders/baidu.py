@@ -30,7 +30,7 @@ class Baidu(Web):
                     yield Request(row.url, dont_filter=True)
             else:
                 print('SLEEEEEPPPP')
-                time.sleep(60)
+                time.sleep(20)
 
     def parse_content(self, response: Response):
         title = Selector(response).xpath(self.patterns['title']).extract_first()
