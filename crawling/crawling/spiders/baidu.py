@@ -22,7 +22,7 @@ class Baidu(Web):
 
     def start_requests(self):
         print('===')
-        rows = Article.objects.filter(summary='').order_by('id')[0].all()[:5]
+        rows = Article.objects.filter(summary='').order_by('id')[10]
         for row in rows:
             yield Request(row.url, dont_filter=True)
     # def parse(self, response: Response, **kwargs: Any) -> Any:

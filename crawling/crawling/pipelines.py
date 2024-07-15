@@ -3,15 +3,7 @@ from article.models import Article
 
 class CrawlingPipeline(object):
     def process_item(self, item, spider):
-            # title = item['title']
-            # summary = item['summary']
-            # content = item['content']
-
-            # Article.objects.create(
-            #     url='https://baike.baidu.com/',
-            #     title=title,
-            #     summary=summary,
-            #     # content='content'
-            # )
-        item.save()
+        Article.objects.update_or_create(
+            title=item.title, url=item.url, summary=item.summary, content=item.content,
+            defaults={'url': item.url})
         return item
