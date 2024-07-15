@@ -30,14 +30,17 @@ class Baidu(Web):
                     yield Request(row.url, dont_filter=True)
             else:
                 print('SLEEEEEPPPP')
-                time.sleep(150)
+                time.sleep(60)
 
     def parse_content(self, response: Response):
         title = Selector(response).xpath(self.patterns['title']).extract_first()
         summary = Selector(response).xpath(self.patterns['summary']).extract()
         contents = []
         dict = {}
-        h3 = {}
+        h3 = {
+            'text': '',
+            'content': []
+        }
         for item in Selector(response).xpath(self.patterns['content']).extract():
             if 'paraTitle_X1rxd level-1_smEgo' in item:
                 dict = {}
