@@ -1,9 +1,9 @@
+from crawling.items import ArticleItem
+from article.models import Article
 from crawling.spiders.web import Web
 from scrapy.http import Response
 from scrapy.selector import Selector
 from w3lib import html
-from crawling.items import ArticleItem
-from article.models import Article
 
 
 class Baidu(Web):
@@ -56,9 +56,10 @@ class Baidu(Web):
             else:
                 pass
 
-        article = ArticleItem()
-        article['title'] = title
-        article['summary'] = summary
-        article['content'] = contents
-
+        article = ArticleItem(title=title, url='https://baike.baidu.com/', summary=summary, content='contents').save()
         return article
+        # article['title'] = title
+        # article['summary'] = summary
+        # article['content'] = contents
+
+        # return article

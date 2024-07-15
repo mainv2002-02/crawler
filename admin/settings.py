@@ -10,9 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
-os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
-
 from pathlib import Path
+
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-=t((^-*i)ioj)xn71fw8fbqq!93!q@+ubf05i92sz1d32fpexx"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '139.59.110.59']
 
 # Application definition
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "article",
+    'crawling',
 ]
 
 MIDDLEWARE = [
@@ -75,16 +76,17 @@ WSGI_APPLICATION = "admin.wsgi.application"
 
 DATABASES = {
     "default": {
-        'ENGINE': 'django.db.backends.sqlite3', #'django.db.backends.mysql',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'crawler',
-        # 'USER': 'root',
-        # 'PASSWORD': 'kesc8eHurr7LQFU',
-        # 'HOST': '127.0.0.1',
-        # 'PORT': '3306',
-        # 'OPTIONS': {
-        #     'charset': 'utf8mb4',
-        #     'use_unicode': True,
-        # },
+        'USER': 'root',
+        'PASSWORD': 'kesc8eHurr7LQFU',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'use_unicode': True,
+        },
     }
 }
 
